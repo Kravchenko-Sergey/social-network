@@ -1,0 +1,21 @@
+.item {
+    display: flex;
+    align-items: center;
+}
+
+.avatar {
+    padding: 10px 0;
+    height: 50px;
+    width: 50px;
+    border-radius: 50px;
+}
+
+.message {
+    flex: 1 1 10%;
+    padding: 0 0 0 10px;
+}
+
+.likes {
+    flex: 1 1 77%;
+    padding: 0 0 0 100px;
+}

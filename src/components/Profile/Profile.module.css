@@ -1,0 +1,5 @@
+.content {
+    grid-area: c;
+    padding: 5px 0 0 10px;
+    line-height: 30px;
+}
