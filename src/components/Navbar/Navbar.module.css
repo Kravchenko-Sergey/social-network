@@ -9,6 +9,11 @@
 
 }
 
-.active {
+.item a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.item a.active {
     color: red;
 }

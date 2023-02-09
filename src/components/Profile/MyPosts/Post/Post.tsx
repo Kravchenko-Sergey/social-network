@@ -2,6 +2,7 @@ import React from 'react'
 import classes from './Post.module.css'
 
 type PostPropsType = {
+	id: number
 	message: string
 	likesCount: number
 }
@@ -11,7 +12,9 @@ function Post(props: PostPropsType) {
 		<div className={classes.item}>
 			<img
 				className={classes.avatar}
-				src='https://cdn1.vectorstock.com/i/1000x1000/23/70/man-avatar-icon-flat-vector-19152370.jpg'
+				src={`https://avatars.dicebear.com/api/avataaars/${(Math.random() + 1)
+					.toString(36)
+					.substring(7)}.svg`}
 				alt={'avatar'}
 			/>
 			<div className={classes.message}>{props.message}</div>
