@@ -23,10 +23,24 @@ export type MessageType = {
 	message: string
 }
 
+export type FriendType = {
+	id: number
+	name: string
+}
+
 type AppPropsType = {
-	postsData: Array<PostType>
-	dialogsData: Array<DialogType>
-	messagesData: Array<MessageType>
+	state: {
+		profilePages: {
+			postsData: Array<PostType>
+		}
+		dialogsPages: {
+			dialogsData: Array<DialogType>
+			messagesData: Array<MessageType>
+		}
+		sidebar: {
+			friends: Array<FriendType>
+		}
+	}
 }
 
 function App(props: AppPropsType) {
@@ -34,17 +48,19 @@ function App(props: AppPropsType) {
 		<BrowserRouter>
 			<div className='app-wrapper'>
 				<Header />
-				<Navbar />
+				<Navbar friends={props.state.sidebar.friends} />
 				<Route
 					path={'/profile'}
-					render={() => <Profile postsData={props.postsData} />}
+					render={() => (
+						<Profile postsData={props.state.profilePages.postsData} />
+					)}
 				/>
 				<Route
 					path={'/dialogs'}
 					render={() => (
 						<Dialogs
-							dialogsData={props.dialogsData}
-							messagesData={props.messagesData}
+							dialogsData={props.state.dialogsPages.dialogsData}
+							messagesData={props.state.dialogsPages.messagesData}
 						/>
 					)}
 				/>

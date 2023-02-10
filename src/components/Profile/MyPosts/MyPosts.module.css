@@ -1,9 +1,11 @@
 .title {
-    padding: 0 0 10px 0;
-    font-size: 18px;
+    padding: 10px 0 20px 30px;
+    font-size: 20px;
+    font-weight: 500;
 }
 
 .form {
+    padding: 0 0 10px 30px;
     display: flex;
 }
 
@@ -31,8 +33,4 @@
 
 .button:active {
     background-color: #092f21;
-}
-
-.posts {
-
 }

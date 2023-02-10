@@ -1,4 +1,5 @@
 .nav {
+    width: 245px;
     grid-area: n;
     padding: 5px 0 0 0;
     border-right: 1px solid antiquewhite;
@@ -16,4 +17,9 @@
 
 .item a.active {
     color: red;
+}
+
+h2 {
+    margin: 70px 0 10px 0;
+    color: #092f21;
 }
