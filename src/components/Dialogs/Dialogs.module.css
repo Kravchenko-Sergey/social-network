@@ -8,32 +8,6 @@
     line-height: 30px;
 }
 
-.dialog {
-    display: flex;
-    align-items: center;
-}
-
-.avatar {
-    padding: 10px 0;
-    height: 50px;
-    width: 50px;
-    border-radius: 50px;
-}
-
-.text {
-    padding: 0 0 0 10px;
-}
-
-.text a {
-    color: inherit;
-    text-decoration: none;
-}
-
-.text a.active {
-    color: red;
-    background-color: #092f21;
-}
-
 .messages {
     padding: 20px 10px 10px 20px;
     display: flex;
