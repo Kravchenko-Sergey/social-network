@@ -41,6 +41,7 @@ type AppPropsType = {
 			friends: Array<FriendType>
 		}
 	}
+	addPost: (postMessage: string) => void
 }
 
 function App(props: AppPropsType) {
@@ -52,7 +53,10 @@ function App(props: AppPropsType) {
 				<Route
 					path={'/profile'}
 					render={() => (
-						<Profile postsData={props.state.profilePages.postsData} />
+						<Profile
+							postsData={props.state.profilePages.postsData}
+							addPost={props.addPost}
+						/>
 					)}
 				/>
 				<Route

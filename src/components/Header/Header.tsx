@@ -10,7 +10,7 @@ function Header() {
 				alt={'logo'}
 			/>
 			<div>
-				<h1 className={classes.name}>Соцсеть и точка</h1>
+				<h1 className={classes.name}>Соцсеть - и точка</h1>
 			</div>
 		</header>
 	)

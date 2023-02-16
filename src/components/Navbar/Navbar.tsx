@@ -9,7 +9,6 @@ type NavbarPropsType = {
 }
 
 function Navbar(props: NavbarPropsType) {
-	console.log(props)
 	return (
 		<>
 			<nav className={classes.nav}>

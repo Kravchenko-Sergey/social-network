@@ -8,7 +8,6 @@ type FriendsPropsType = {
 }
 
 function Friends(props: FriendsPropsType) {
-	console.log(props)
 	const friendElement = props.friends.map(friend => (
 		<div key={friend.id} className={classes.container}>
 			<Friend id={friend.id} name={friend.name} />

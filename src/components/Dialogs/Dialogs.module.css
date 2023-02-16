@@ -35,3 +35,34 @@
     border: 1px solid gray;
     border-radius: 10px 10px 10px 0;
 }
+
+.form {
+    padding: 0 0 10px 5px;
+    display: flex;
+}
+
+.textarea {
+    font-size: 14px;
+    border: 2px solid #0f583d;
+    border-radius: 10px;
+}
+
+.textarea:focus {
+    outline: 0;
+    border: 2px solid #092f21;
+}
+
+.button {
+    margin: 0 0 0 5px;
+    padding: 0 15px;
+    background-color: #0f583d;
+    border-style: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    color: white;
+}
+
+.button:active {
+    background-color: #092f21;
+}

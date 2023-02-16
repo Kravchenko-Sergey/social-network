@@ -28,6 +28,10 @@ function Dialogs(props: DialogsPropsType) {
 						}
 					/>
 				))}
+				<div className={classes.form}>
+					<textarea className={classes.textarea}></textarea>
+					<button className={classes.button}>send message</button>
+				</div>
 			</div>
 		</div>
 	)

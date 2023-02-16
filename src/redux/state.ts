@@ -28,12 +28,18 @@ const state = {
 		friends: [
 			{ id: 1, name: 'Dimych' },
 			{ id: 2, name: 'Sveta' },
-			{ id: 3, name: 'Egor' },
+			{ id: 3, name: 'Denis' },
 			{ id: 4, name: 'Alisa' },
 			{ id: 5, name: 'Egor' },
 			{ id: 6, name: 'Masha' }
 		]
 	}
+}
+
+export const addPost = (postMessage: string) => {
+	const newPost = { id: 92, message: postMessage, likesCount: 0 }
+	state.profilePages.postsData.push(newPost)
+	console.log(state.profilePages.postsData)
 }
 
 export default state
