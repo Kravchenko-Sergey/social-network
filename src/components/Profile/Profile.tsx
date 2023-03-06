@@ -6,14 +6,19 @@ import { PostType } from '../../App'
 
 type ProfilePropsType = {
 	postsData: Array<PostType>
-	addPost: (postMessage: string) => void
+	newPostText: string
+	dispatch: any
 }
 
 function Profile(props: ProfilePropsType) {
 	return (
 		<div className={classes.content}>
 			<ProfileInfo />
-			<MyPosts postsData={props.postsData} addPost={props.addPost} />
+			<MyPosts
+				postsData={props.postsData}
+				newPostText={props.newPostText}
+				dispatch={props.dispatch}
+			/>
 		</div>
 	)
 }

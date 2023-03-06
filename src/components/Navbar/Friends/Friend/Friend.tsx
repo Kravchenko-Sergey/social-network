@@ -7,7 +7,6 @@ type FriendPropsType = {
 }
 
 function Friend(props: FriendPropsType) {
-	console.log(props)
 	return (
 		<div className={classes.container}>
 			<div className={classes.avatar}>

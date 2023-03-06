@@ -28,20 +28,22 @@ export type FriendType = {
 	name: string
 }
 
-type AppPropsType = {
+export type AppPropsType = {
 	state: {
 		profilePages: {
 			postsData: Array<PostType>
+			newPostText: string
 		}
 		dialogsPages: {
 			dialogsData: Array<DialogType>
 			messagesData: Array<MessageType>
+			newMessageText: string
 		}
 		sidebar: {
 			friends: Array<FriendType>
 		}
 	}
-	addPost: (postMessage: string) => void
+	dispatch: any
 }
 
 function App(props: AppPropsType) {
@@ -55,7 +57,8 @@ function App(props: AppPropsType) {
 					render={() => (
 						<Profile
 							postsData={props.state.profilePages.postsData}
-							addPost={props.addPost}
+							dispatch={props.dispatch}
+							newPostText={props.state.profilePages.newPostText}
 						/>
 					)}
 				/>
@@ -65,6 +68,8 @@ function App(props: AppPropsType) {
 						<Dialogs
 							dialogsData={props.state.dialogsPages.dialogsData}
 							messagesData={props.state.dialogsPages.messagesData}
+							dispatch={props.dispatch}
+							newMessageText={props.state.dialogsPages.newMessageText}
 						/>
 					)}
 				/>

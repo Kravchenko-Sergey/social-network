@@ -2,24 +2,40 @@ import React, { LegacyRef, RefObject } from 'react'
 import classes from './MyPosts.module.css'
 import Post from './Post/Post'
 import { PostType } from '../../../App'
+import { text } from 'stream/consumers'
+import {
+	addPostActionCreator,
+	updateNewPostTextActionCreator
+} from '../../../redux/profile-reducer'
 
 type MyPostsPropsType = {
 	postsData: Array<PostType>
-	addPost: (postMessage: string) => void
+	newPostText: string
+	dispatch: any
 }
 
 const newPostElement: RefObject<HTMLTextAreaElement> = React.createRef()
 
 function MyPosts(props: MyPostsPropsType) {
 	const addUser = () => {
-		const text = newPostElement!.current!.value
-		props.addPost(text)
+		props.dispatch(addPostActionCreator())
+		newPostElement!.current!.value = ''
+	}
+	const onPostChange = () => {
+		const text = newPostElement.current?.value
+		const action = updateNewPostTextActionCreator(text)
+		props.dispatch({ type: 'UPDATE-NEW-POST-TEXT', newText: text })
 	}
 	return (
 		<div>
 			<div className={classes.title}>My posts</div>
 			<div className={classes.form}>
-				<textarea ref={newPostElement} className={classes.textarea}></textarea>
+				<textarea
+					ref={newPostElement}
+					value={props.newPostText}
+					onChange={onPostChange}
+					className={classes.textarea}
+				/>
 				<button onClick={addUser} className={classes.button}>
 					Add post
 				</button>
