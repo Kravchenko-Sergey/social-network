@@ -3,7 +3,7 @@ import dialogsReducer from './dialogs-reducer'
 import sidebarReducer from './sidebar-reducer'
 
 const store = {
-	_state: {
+	/*_state: {
 		profilePages: {
 			postsData: [
 				{ id: 1, message: 'Hi, how are you?', likesCount: 5 },
@@ -56,7 +56,7 @@ const store = {
 		this._state.dialogsPages = dialogsReducer(this._state.dialogsPages, action)
 		this._state.sidebar = sidebarReducer(this._state.sidebar, action)
 		this._callSubscriber()
-	}
+	}*/
 }
 
 export default store

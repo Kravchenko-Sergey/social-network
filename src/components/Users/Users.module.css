@@ -1,0 +1,69 @@
+.container {
+    padding: 10px 20px;
+}
+
+.user {
+    padding: 20px 0;
+    display: flex;
+}
+
+.avaButton {
+   display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.userInform {
+    display: flex;
+    justify-content: space-between;
+}
+
+.userName {
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.nameAndStatus {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.userStatus {
+
+}
+
+.location {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    padding: 0 0 35px 200px
+}
+
+.buttonFollow {
+    height: 40px;
+    width: 110px;
+    background-color: darkgreen;
+    color: white;
+    font-size: 18px;
+    border: none;
+    border-radius: 10px;
+}
+
+.buttonUnfollow {
+    height: 40px;
+    width: 110px;
+    background-color: darkred;
+    color: white;
+    font-size: 18px;
+    border: none;
+    border-radius: 10px;
+}
+
+img {
+    padding: 0 0 10px 0;
+}
+
+
+

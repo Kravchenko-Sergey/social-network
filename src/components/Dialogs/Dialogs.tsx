@@ -1,42 +1,51 @@
-import React, { RefObject } from 'react'
+import React, { ChangeEvent, RefObject } from 'react'
 import classes from './Dialogs.module.css'
 import Message from './Message/Message'
 import DialogItem from './DialogItem/DialogItem'
-import { DialogType, MessageType, PostType } from '../../App'
-import {
-	addMessageActionCreator,
-	updateNewMessageText
-} from '../../redux/dialogs-reducer'
+import { DialogsPagesType } from '../../App'
+import store from '../../redux/redux-store'
 
-type DialogsPropsType = {
-	dialogsData: Array<DialogType>
-	messagesData: Array<MessageType>
+type DialogsType = {
+	updateNewMessageText: (text: string) => void
+	addMessage: () => void
+	messagesData: MessageType[]
+	dialogsData: DialogType[]
 	newMessageText: string
-	dispatch: any
+}
+
+type DialogType = {
+	id: number
+	name: string
+}
+
+type MessageType = {
+	id: number
+	message: string
 }
 
 const newMessageElement: RefObject<HTMLTextAreaElement> = React.createRef()
 
-function Dialogs(props: DialogsPropsType) {
-	const addMess = () => {
-		props.dispatch(addMessageActionCreator())
+function Dialogs(props: DialogsType) {
+	const state = props.dialogsData
+
+	const addMessage = () => {
+		props.addMessage()
 	}
 
-	const onMessageChange = () => {
-		const text = newMessageElement.current?.value
-		const actions = updateNewMessageText(text)
-		props.dispatch(actions)
+	const onMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+		const text = e.target.value
+		props.updateNewMessageText(text)
 	}
 
 	return (
 		<div className={classes.container}>
 			<div className={classes.dialogs}>
-				{props.dialogsData.map(dialog => (
+				{store.getState().dialogsReducer.dialogsData.map(dialog => (
 					<DialogItem key={dialog.id} id={dialog.id} name={dialog.name} />
 				))}
 			</div>
 			<div className={classes.messages}>
-				{props.messagesData.map(message => (
+				{store.getState().dialogsReducer.messagesData.map(message => (
 					<Message
 						key={message.id}
 						id={message.id}
@@ -53,7 +62,7 @@ function Dialogs(props: DialogsPropsType) {
 						onChange={onMessageChange}
 						className={classes.textarea}
 					/>
-					<button onClick={addMess} className={classes.button}>
+					<button onClick={addMessage} className={classes.button}>
 						send message
 					</button>
 				</div>

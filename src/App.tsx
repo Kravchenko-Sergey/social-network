@@ -3,11 +3,42 @@ import './App.css'
 import Header from './components/Header/Header'
 import Navbar from './components/Navbar/Navbar'
 import Profile from './components/Profile/Profile'
-import Dialogs from './components/Dialogs/Dialogs'
-import { BrowserRouter, Route } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 import News from './components/News/News'
 import Music from './components/Music/Music'
 import Settings from './components/Settings/Settings'
+import DialogsContainer from './components/Dialogs/DialogsContainer'
+import UsersContainer from './components/Users/UsersContainer'
+import store from './redux/redux-store'
+
+export type DialogsPagesType = {
+	dialogsData: DialogType[]
+	messagesData: MessageType[]
+	mewMessageText: string
+}
+
+export type ProfilePagesType = {
+	postsData: PostType[]
+	newPostText: string
+}
+
+export type UsersPageType = {
+	users: UserType[]
+}
+
+export type UserType = {
+	id: number
+	photoUrl: string
+	followed: boolean
+	fullName: string
+	status: string
+	location: UserLocation
+}
+
+export type UserLocation = {
+	city: string
+	country: string
+}
 
 export type PostType = {
 	id: number
@@ -30,54 +61,34 @@ export type FriendType = {
 
 export type AppPropsType = {
 	state: {
-		profilePages: {
+		profileReducer: {
 			postsData: Array<PostType>
 			newPostText: string
 		}
-		dialogsPages: {
+		dialogsReducer: {
 			dialogsData: Array<DialogType>
 			messagesData: Array<MessageType>
 			newMessageText: string
 		}
-		sidebar: {
+		sidebarReducer: {
 			friends: Array<FriendType>
 		}
 	}
 	dispatch: any
 }
 
-function App(props: AppPropsType) {
+function App(props: any) {
 	return (
-		<BrowserRouter>
-			<div className='app-wrapper'>
-				<Header />
-				<Navbar friends={props.state.sidebar.friends} />
-				<Route
-					path={'/profile'}
-					render={() => (
-						<Profile
-							postsData={props.state.profilePages.postsData}
-							dispatch={props.dispatch}
-							newPostText={props.state.profilePages.newPostText}
-						/>
-					)}
-				/>
-				<Route
-					path={'/dialogs'}
-					render={() => (
-						<Dialogs
-							dialogsData={props.state.dialogsPages.dialogsData}
-							messagesData={props.state.dialogsPages.messagesData}
-							dispatch={props.dispatch}
-							newMessageText={props.state.dialogsPages.newMessageText}
-						/>
-					)}
-				/>
-				<Route path={'/news'} component={News} />
-				<Route path={'/music'} component={Music} />
-				<Route path={'/settings'} component={Settings} />
-			</div>
-		</BrowserRouter>
+		<div className='app-wrapper'>
+			<Header />
+			<Navbar friends={store.getState().sidebarReducer.friends} />
+			<Route path={'/profile'} render={() => <Profile />} />
+			<Route path={'/dialogs'} render={() => <DialogsContainer />} />
+			<Route path={'/users'} render={() => <UsersContainer />} />
+			<Route path={'/news'} component={News} />
+			<Route path={'/music'} component={Music} />
+			<Route path={'/settings'} component={Settings} />
+		</div>
 	)
 }
 

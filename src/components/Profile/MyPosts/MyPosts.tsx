@@ -2,29 +2,25 @@ import React, { LegacyRef, RefObject } from 'react'
 import classes from './MyPosts.module.css'
 import Post from './Post/Post'
 import { PostType } from '../../../App'
-import { text } from 'stream/consumers'
-import {
-	addPostActionCreator,
-	updateNewPostTextActionCreator
-} from '../../../redux/profile-reducer'
+import store from '../../../redux/redux-store'
+import { MyPostsPropsType } from './MyPostsContainer'
 
-type MyPostsPropsType = {
-	postsData: Array<PostType>
+/*type MyPostsPropsType = {
+	updateNewPostText: (text: string) => void
+	addPost: () => void
+	postsData: PostType[]
 	newPostText: string
-	dispatch: any
-}
+}*/
 
 const newPostElement: RefObject<HTMLTextAreaElement> = React.createRef()
 
 function MyPosts(props: MyPostsPropsType) {
-	const addUser = () => {
-		props.dispatch(addPostActionCreator())
-		newPostElement!.current!.value = ''
+	const onAddPost = () => {
+		props.addPost()
 	}
 	const onPostChange = () => {
-		const text = newPostElement.current?.value
-		const action = updateNewPostTextActionCreator(text)
-		props.dispatch({ type: 'UPDATE-NEW-POST-TEXT', newText: text })
+		const text: any = newPostElement.current?.value
+		props.updateNewPostText(text)
 	}
 	return (
 		<div>
@@ -36,12 +32,12 @@ function MyPosts(props: MyPostsPropsType) {
 					onChange={onPostChange}
 					className={classes.textarea}
 				/>
-				<button onClick={addUser} className={classes.button}>
+				<button onClick={onAddPost} className={classes.button}>
 					Add post
 				</button>
 			</div>
 			<div className={classes.posts}>
-				{props.postsData.map(post => (
+				{store.getState().profileReducer.postsData.map(post => (
 					<Post
 						key={post.id}
 						id={post.id}

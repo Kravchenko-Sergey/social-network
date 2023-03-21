@@ -1,8 +1,8 @@
 import React from 'react'
 import classes from './Profile.module.css'
-import MyPosts from './MyPosts/MyPosts'
 import ProfileInfo from './ProfileInfo/ProfileInfo'
 import { PostType } from '../../App'
+import { MyPostsContainer } from './MyPosts/MyPostsContainer'
 
 type ProfilePropsType = {
 	postsData: Array<PostType>
@@ -10,15 +10,11 @@ type ProfilePropsType = {
 	dispatch: any
 }
 
-function Profile(props: ProfilePropsType) {
+function Profile() {
 	return (
 		<div className={classes.content}>
 			<ProfileInfo />
-			<MyPosts
-				postsData={props.postsData}
-				newPostText={props.newPostText}
-				dispatch={props.dispatch}
-			/>
+			<MyPostsContainer />
 		</div>
 	)
 }
