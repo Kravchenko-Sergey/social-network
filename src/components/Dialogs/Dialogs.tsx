@@ -2,7 +2,6 @@ import React, { ChangeEvent, RefObject } from 'react'
 import classes from './Dialogs.module.css'
 import Message from './Message/Message'
 import DialogItem from './DialogItem/DialogItem'
-import { DialogsPagesType } from '../../App'
 import store from '../../redux/redux-store'
 
 type DialogsType = {

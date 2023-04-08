@@ -32,12 +32,12 @@ const initialState = {
 
 export type InitialStateType = typeof initialState
 
-const dialogsReducer = (
+export const dialogsReducer = (
 	state: InitialStateType = initialState,
 	action: UnionType
 ): InitialStateType => {
 	switch (action.type) {
-		case 'ADD-MESSAGE': {
+		case ADD_MESSAGE: {
 			const newMessage = {
 				id: Number(new Date()),
 				message: state.newMessageText
@@ -48,7 +48,7 @@ const dialogsReducer = (
 				messagesData: [...state.messagesData, newMessage]
 			}
 		}
-		case 'UPDATE-NEW-MESSAGE-TEXT': {
+		case UPDATE_NEW_MESSAGE_TEXT: {
 			return { ...state, newMessageText: action.newText }
 		}
 		default:
@@ -72,5 +72,3 @@ export const updateNewMessageTextAC = (text: string) => {
 		newText: text
 	} as const
 }
-
-export default dialogsReducer

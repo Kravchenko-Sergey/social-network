@@ -1,5 +1,5 @@
 import React from 'react'
-import { DialogType, MessageType, UserType } from '../../App'
+import { DialogType, MessageType } from '../../App'
 import {
 	addMessageAC,
 	updateNewMessageTextAC
@@ -8,13 +8,12 @@ import Dialogs from './Dialogs'
 import { connect } from 'react-redux'
 import store, { AppStateType } from '../../redux/redux-store'
 import { Dispatch } from 'redux'
-import { InitialStateType } from '../../redux/users-reducer'
 
 type DialogsContainerPropsType = {
 	dialogsData: Array<DialogType>
 	messagesData: Array<MessageType>
 	newMessageText: string
-	dispatch: any
+	dispatch: Dispatch
 }
 
 type MapStatePropsType = {

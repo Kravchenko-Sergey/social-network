@@ -4,12 +4,11 @@
     border-bottom: 1px solid antiquewhite;
 }
 
-img {
-    height: 150px;
-    width: 150px;
-    padding: 0 0 10px 10px;
+.avatar {
+    padding: 0 0 0 10px;
 }
 
-p {
-    padding: 0 0 0 10px;
+.avatar img {
+    height: 180px;
+    width: 180px;
 }

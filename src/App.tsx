@@ -2,7 +2,6 @@ import React from 'react'
 import './App.css'
 import Header from './components/Header/Header'
 import Navbar from './components/Navbar/Navbar'
-import Profile from './components/Profile/Profile'
 import { Route } from 'react-router-dom'
 import News from './components/News/News'
 import Music from './components/Music/Music'
@@ -10,6 +9,8 @@ import Settings from './components/Settings/Settings'
 import DialogsContainer from './components/Dialogs/DialogsContainer'
 import UsersContainer from './components/Users/UsersContainer'
 import store from './redux/redux-store'
+import { Dispatch } from 'redux'
+import ProfileContainer from './components/Profile/ProfileContainer'
 
 export type DialogsPagesType = {
 	dialogsData: DialogType[]
@@ -28,11 +29,15 @@ export type UsersPageType = {
 
 export type UserType = {
 	id: number
-	photoUrl: string
+	name: string
+	uniqueUrlName: string
+
+	photos: {
+		large: string
+		small: string
+	}
 	followed: boolean
-	fullName: string
 	status: string
-	location: UserLocation
 }
 
 export type UserLocation = {
@@ -74,15 +79,15 @@ export type AppPropsType = {
 			friends: Array<FriendType>
 		}
 	}
-	dispatch: any
+	dispatch: Dispatch
 }
 
-function App(props: any) {
+function App() {
 	return (
 		<div className='app-wrapper'>
 			<Header />
 			<Navbar friends={store.getState().sidebarReducer.friends} />
-			<Route path={'/profile'} render={() => <Profile />} />
+			<Route path={'/profile/:userId?'} render={() => <ProfileContainer />} />
 			<Route path={'/dialogs'} render={() => <DialogsContainer />} />
 			<Route path={'/users'} render={() => <UsersContainer />} />
 			<Route path={'/news'} component={News} />

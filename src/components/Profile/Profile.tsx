@@ -1,19 +1,16 @@
 import React from 'react'
 import classes from './Profile.module.css'
 import ProfileInfo from './ProfileInfo/ProfileInfo'
-import { PostType } from '../../App'
 import { MyPostsContainer } from './MyPosts/MyPostsContainer'
 
 type ProfilePropsType = {
-	postsData: Array<PostType>
-	newPostText: string
-	dispatch: any
+	profile: any
 }
 
-function Profile() {
+function Profile(props: ProfilePropsType) {
 	return (
 		<div className={classes.content}>
-			<ProfileInfo />
+			<ProfileInfo profile={props.profile} />
 			<MyPostsContainer />
 		</div>
 	)

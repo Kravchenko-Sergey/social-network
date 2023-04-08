@@ -1,4 +1,13 @@
-const initialState = {
+import { FriendType } from '../App'
+import { Action } from 'redux'
+
+type InitialStateType = {
+	friends: FriendType[]
+}
+
+const SET_USERS = 'SET-USERS'
+
+const initialState: InitialStateType = {
 	friends: [
 		{ id: 1, name: 'Dimych' },
 		{ id: 2, name: 'Sveta' },
@@ -9,8 +18,12 @@ const initialState = {
 	]
 }
 
-const sidebarReducer = (state: any = initialState, action: any) => {
-	return state
+export const sidebarReducer = (
+	state: InitialStateType = initialState,
+	action: Action
+): InitialStateType => {
+	switch (action.type) {
+		default:
+			return state
+	}
 }
-
-export default sidebarReducer
