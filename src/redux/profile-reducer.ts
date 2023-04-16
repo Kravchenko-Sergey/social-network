@@ -1,13 +1,42 @@
 import { PostType } from '../App'
+import { usersAPI } from '../api/api'
+import { ThunkAction } from 'redux-thunk'
+import { AppStateType } from './redux-store'
 
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
 const SET_USER_PROFILE = 'SET-USER-PROFILE'
 
+type PhotosType = {
+	small: string
+	large: string
+}
+
+type ContactsType = {
+	facebook: string
+	github: string
+	instagram: string
+	mainLink: null
+	twitter: string
+	vk: string
+	website: null
+	youtube: null
+}
+
+export type ProfileType = {
+	aboutMe: string
+	contacts: ContactsType
+	fullName: string
+	lookingForAJob: boolean
+	lookingForAJobDescription: string
+	photos: PhotosType
+	userId: number
+}
+
 type InitialStateProfileReducerType = {
 	postsData: PostType[]
 	newPostText: string
-	profile: any
+	profile: ProfileType | null
 }
 
 const initialState = {
@@ -68,7 +97,7 @@ export const updateNewPostTextAC = (text: string) => {
 }
 
 type SetUserProfileACType = ReturnType<typeof setUserProfile>
-export const setUserProfile = (profile: string) => {
+export const setUserProfile = (profile: ProfileType) => {
 	return {
 		type: SET_USER_PROFILE,
 		payload: {
@@ -76,3 +105,12 @@ export const setUserProfile = (profile: string) => {
 		}
 	} as const
 }
+
+type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, UnionType>
+export const getUserProfile =
+	(userId: number): ThunkType =>
+	dispatch => {
+		return usersAPI.getProfile(userId).then(response => {
+			dispatch(setUserProfile(response.data))
+		})
+	}

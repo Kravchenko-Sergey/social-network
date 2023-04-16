@@ -1,9 +1,15 @@
 .header {
     padding: 0 10px 5px 0;
+    border-bottom: 1px solid antiquewhite;
     grid-area: h;
     display: flex;
     align-items: center;
-    border-bottom: 1px solid antiquewhite;
+    justify-content: space-between;
+}
+
+.logoBlock {
+    display: flex;
+    align-items: center;
 }
 
 .logo {
@@ -15,7 +21,26 @@
 .name {
     margin: 0 0 0 10px;
     font-size: 20px;
-    font-family: Tahoma;
+    font-family: Tahoma, sans-serif;
     font-weight: 700;
     color: darkgreen;
+}
+
+.loginBlock {
+
+}
+
+.loginBlock:hover {
+    transform: scale(1.1);
+}
+
+.loginBlock a {
+    margin: 0 20px 0 0;
+    color: darkgreen;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.loginBlock a:hover {
+    color: #092f21;
 }

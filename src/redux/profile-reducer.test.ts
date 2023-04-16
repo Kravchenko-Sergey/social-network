@@ -1,9 +1,4 @@
-import {
-	addPostAC,
-	profileReducer,
-	setUserProfile,
-	updateNewPostTextAC
-} from './profile-reducer'
+import { addPostAC, profileReducer, setUserProfile, updateNewPostTextAC } from './profile-reducer'
 
 test('New post should be added correctly', () => {
 	const startState = {
@@ -19,9 +14,7 @@ test('New post should be added correctly', () => {
 	const endState = profileReducer(startState, addPostAC())
 
 	expect(endState.postsData.length).toBe(4)
-	expect(endState.postsData[endState.postsData.length - 1].message).toBe(
-		endState.newPostText
-	)
+	expect(endState.postsData[endState.postsData.length - 1].message).toBe(endState.newPostText)
 	expect(endState.postsData[endState.postsData.length - 1].likesCount).toBe(0)
 })
 
@@ -52,7 +45,27 @@ test('The user profile should change correctly', () => {
 		newPostText: '',
 		profile: null
 	}
-	const newProfile = ''
+	const newProfile = {
+		aboutMe: 'fdgdgs',
+		contacts: {
+			facebook: 'gdfgd',
+			github: 'dfgdfgdf',
+			instagram: 'dgfdfg',
+			mainLink: null,
+			twitter: 'dfgdfg',
+			vk: 'dfgdfg',
+			website: null,
+			youtube: null
+		},
+		fullName: 'dfgdsfg',
+		lookingForAJob: false,
+		lookingForAJobDescription: 'sdfsdf',
+		photos: {
+			small: 'fdfdgf',
+			large: 'dfgdfgdg'
+		},
+		userId: 43535
+	}
 
 	const endState = profileReducer(startState, setUserProfile(newProfile))
 

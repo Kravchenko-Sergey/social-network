@@ -1,17 +1,23 @@
 import React from 'react'
 import classes from './Header.module.css'
+import { NavLink } from 'react-router-dom'
 
-function Header() {
+type HeaderPropsType = any
+
+function Header(props: HeaderPropsType) {
 	return (
 		<header className={classes.header}>
-			<img
-				className={classes.logo}
-				src='https://free-png.ru/wp-content/uploads/2022/06/free-png.ru-441.png'
-				alt={'logo'}
-			/>
-			<div>
-				<h1 className={classes.name}>Соцсеть - и точка</h1>
+			<div className={classes.logoBlock}>
+				<img
+					className={classes.logo}
+					src='https://free-png.ru/wp-content/uploads/2022/06/free-png.ru-441.png'
+					alt='logo'
+				/>
+				<div>
+					<h1 className={classes.name}>Соцсеть - и точка</h1>
+				</div>
 			</div>
+			<div className={classes.loginBlock}>{props.isAuth ? props.login : <NavLink to={'./login'}>Login</NavLink>}</div>
 		</header>
 	)
 }

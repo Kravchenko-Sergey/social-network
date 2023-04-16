@@ -1,10 +1,10 @@
 import {
-	follow,
+	followSuccess,
 	setCurrentPage,
 	setTotalUsersCount,
 	setUsers,
 	toggleIsFetching,
-	unfollow,
+	unfollowSuccess,
 	usersReducer
 } from './users-reducer'
 
@@ -48,10 +48,11 @@ test("The user status should change to 'follow'", () => {
 		pageSize: 5,
 		totalUserCount: 0,
 		currentPage: 1,
-		isFetching: false
+		isFetching: false,
+		followingInProgress: [1, 2, 3]
 	}
 
-	const endState = usersReducer(startState, follow(123))
+	const endState = usersReducer(startState, followSuccess(123))
 
 	expect(endState.users[1].followed).toBeTruthy()
 })
@@ -96,10 +97,11 @@ test("The user status should change to 'unfollow'", () => {
 		pageSize: 5,
 		totalUserCount: 0,
 		currentPage: 1,
-		isFetching: false
+		isFetching: false,
+		followingInProgress: [1, 2, 3]
 	}
 
-	const endState = usersReducer(startState, unfollow(582))
+	const endState = usersReducer(startState, unfollowSuccess(582))
 
 	expect(endState.users[2].followed).toBeFalsy()
 })
@@ -144,7 +146,8 @@ test('The list of users should display correctly', () => {
 		pageSize: 5,
 		totalUserCount: 0,
 		currentPage: 1,
-		isFetching: false
+		isFetching: false,
+		followingInProgress: [1, 2, 3]
 	}
 
 	const endState = usersReducer(
@@ -218,7 +221,8 @@ test('The current page must be correctly set', () => {
 		pageSize: 5,
 		totalUserCount: 0,
 		currentPage: 1,
-		isFetching: false
+		isFetching: false,
+		followingInProgress: [1, 2, 3]
 	}
 
 	const endState = usersReducer(startState, setCurrentPage(5))
@@ -266,7 +270,8 @@ test('The total number of users must be correctly set', () => {
 		pageSize: 5,
 		totalUserCount: 0,
 		currentPage: 1,
-		isFetching: false
+		isFetching: false,
+		followingInProgress: [1, 2, 3]
 	}
 
 	const endState = usersReducer(startState, setTotalUsersCount(20))
@@ -314,7 +319,8 @@ test('The switch should work correctly', () => {
 		pageSize: 5,
 		totalUserCount: 0,
 		currentPage: 1,
-		isFetching: false
+		isFetching: false,
+		followingInProgress: [1, 2, 3]
 	}
 
 	const endState = usersReducer(startState, toggleIsFetching(false))

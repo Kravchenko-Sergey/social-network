@@ -1,6 +1,5 @@
 import React from 'react'
 import './App.css'
-import Header from './components/Header/Header'
 import Navbar from './components/Navbar/Navbar'
 import { Route } from 'react-router-dom'
 import News from './components/News/News'
@@ -11,6 +10,8 @@ import UsersContainer from './components/Users/UsersContainer'
 import store from './redux/redux-store'
 import { Dispatch } from 'redux'
 import ProfileContainer from './components/Profile/ProfileContainer'
+import HeaderContainer from './components/Header/HeaderContainer'
+import Login from './components/Login/Login'
 
 export type DialogsPagesType = {
 	dialogsData: DialogType[]
@@ -31,18 +32,9 @@ export type UserType = {
 	id: number
 	name: string
 	uniqueUrlName: string
-
-	photos: {
-		large: string
-		small: string
-	}
+	photos: { large: string; small: string }
 	followed: boolean
 	status: string
-}
-
-export type UserLocation = {
-	city: string
-	country: string
 }
 
 export type PostType = {
@@ -85,11 +77,12 @@ export type AppPropsType = {
 function App() {
 	return (
 		<div className='app-wrapper'>
-			<Header />
+			<HeaderContainer />
 			<Navbar friends={store.getState().sidebarReducer.friends} />
 			<Route path={'/profile/:userId?'} render={() => <ProfileContainer />} />
 			<Route path={'/dialogs'} render={() => <DialogsContainer />} />
 			<Route path={'/users'} render={() => <UsersContainer />} />
+			<Route path={'/login'} render={() => <Login />} />
 			<Route path={'/news'} component={News} />
 			<Route path={'/music'} component={Music} />
 			<Route path={'/settings'} component={Settings} />

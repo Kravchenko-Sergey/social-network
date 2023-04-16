@@ -3,6 +3,7 @@ import classes from './Dialogs.module.css'
 import Message from './Message/Message'
 import DialogItem from './DialogItem/DialogItem'
 import store from '../../redux/redux-store'
+import { Redirect } from 'react-router-dom'
 
 type DialogsType = {
 	updateNewMessageText: (text: string) => void
@@ -10,6 +11,7 @@ type DialogsType = {
 	messagesData: MessageType[]
 	dialogsData: DialogType[]
 	newMessageText: string
+	isAuth: boolean
 }
 
 type DialogType = {
@@ -36,6 +38,10 @@ function Dialogs(props: DialogsType) {
 		props.updateNewMessageText(text)
 	}
 
+	if (!props.isAuth) {
+		return <Redirect to={'/login'} />
+	}
+
 	return (
 		<div className={classes.container}>
 			<div className={classes.dialogs}>
@@ -49,9 +55,7 @@ function Dialogs(props: DialogsType) {
 						key={message.id}
 						id={message.id}
 						text={message.message}
-						className={
-							message.id % 2 === 0 ? classes.myMessage : classes.message
-						}
+						className={message.id % 2 === 0 ? classes.myMessage : classes.message}
 					/>
 				))}
 				<div className={classes.form}>
