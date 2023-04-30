@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ComponentType } from 'react'
 import { connect } from 'react-redux'
 import {
 	followSuccess,
@@ -11,6 +11,8 @@ import { AppStateType } from '../../redux/redux-store'
 import { UserType } from '../../App'
 import Users from './Users'
 import Preloader from '../common/Preloader/Preloader'
+import { withAuthRedirect } from '../../hoc/withAuthRedirect'
+import { compose } from 'redux'
 
 type MapStatePropsType = {
 	usersPage: {
@@ -92,10 +94,13 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
 	}
 }
 
-export default connect(mapStateToProps, {
-	follow: followSuccess,
-	unfollow: unfollowSuccess,
-	setCurrentPage,
-	toggleFollowingProgress,
-	getUsers
-})(UsersAPIComponent)
+export default compose<ComponentType>(
+	withAuthRedirect,
+	connect(mapStateToProps, {
+		follow: followSuccess,
+		unfollow: unfollowSuccess,
+		setCurrentPage,
+		toggleFollowingProgress,
+		getUsers
+	})
+)(UsersAPIComponent)

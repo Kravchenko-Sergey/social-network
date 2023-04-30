@@ -8,7 +8,8 @@ test('New post should be added correctly', () => {
 			{ id: 3, message: 'Yo', likesCount: 15 }
 		],
 		newPostText: '',
-		profile: null
+		profile: null,
+		status: ''
 	}
 
 	const endState = profileReducer(startState, addPostAC())
@@ -26,7 +27,8 @@ test('The text of the new post should be correctly added', () => {
 			{ id: 3, message: 'Yo', likesCount: 15 }
 		],
 		newPostText: '',
-		profile: null
+		profile: null,
+		status: ''
 	}
 	const newText = 'Hello World!'
 
@@ -43,7 +45,8 @@ test('The user profile should change correctly', () => {
 			{ id: 3, message: 'Yo', likesCount: 15 }
 		],
 		newPostText: '',
-		profile: null
+		profile: null,
+		status: ''
 	}
 	const newProfile = {
 		aboutMe: 'fdgdgs',

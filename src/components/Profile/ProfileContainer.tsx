@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { ComponentType } from 'react'
 import Profile from './Profile'
 import { connect } from 'react-redux'
-import { getUserProfile, ProfileType } from '../../redux/profile-reducer'
-import { AppStateType } from '../../redux/redux-store'
-import { Redirect, RouteComponentProps, withRouter } from 'react-router-dom'
+import { getStatus, getUserProfile, ProfileType, updateStatus } from '../../redux/profile-reducer'
+import { RouteComponentProps, withRouter } from 'react-router-dom'
+import { withAuthRedirect } from '../../hoc/withAuthRedirect'
+import { compose } from 'redux'
 
 type PathParamsType = {
 	userId: string
@@ -12,10 +13,13 @@ type PathParamsType = {
 type MapStatePropsType = {
 	isAuth: boolean
 	profile: ProfileType | null
+	status: string
+	updateStatus: any
 }
 
 type MapDispatchPropsType = {
 	getUserProfile: (userId: number) => void
+	getStatus: (status: string) => void
 }
 
 type OwnPropsType = MapStatePropsType & MapDispatchPropsType
@@ -29,20 +33,27 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
 			userId = '2'
 		}
 		this.props.getUserProfile(Number(userId))
+		this.props.getStatus(userId)
 	}
 	render() {
-		if (!this.props.isAuth) {
-			return <Redirect to={'/login'} />
-		}
-		return <Profile {...this.props} profile={this.props.profile} />
+		return (
+			<Profile
+				{...this.props}
+				profile={this.props.profile}
+				status={this.props.status}
+				updateStatus={this.props.updateStatus}
+			/>
+		)
 	}
 }
 
-const mapStateToProps = (state: AppStateType): MapStatePropsType => ({
+const mapStateToProps = (state: any): any => ({
 	profile: state.profileReducer.profile,
-	isAuth: state.auth.isAuth
+	status: state.profileReducer.status
 })
 
-const WithUrlDataContainerComponent = withRouter(ProfileContainer)
-
-export default connect(mapStateToProps, { getUserProfile })(WithUrlDataContainerComponent)
+export default compose<ComponentType>(
+	connect(mapStateToProps, { getUserProfile, getStatus, updateStatus }),
+	withRouter,
+	withAuthRedirect
+)(ProfileContainer)
