@@ -6,13 +6,15 @@ import { dialogsReducer } from './dialogs-reducer'
 import { sidebarReducer } from './sidebar-reducer'
 import { usersReducer } from './users-reducer'
 import { authReducer } from './auth-reducer'
+import { reducer as formReducer } from 'redux-form'
 
 const rootReducer = combineReducers({
 	profileReducer: profileReducer,
 	dialogsReducer: dialogsReducer,
 	sidebarReducer: sidebarReducer,
 	usersPage: usersReducer,
-	auth: authReducer
+	auth: authReducer,
+	form: formReducer
 })
 
 export type AppStateType = ReturnType<typeof rootReducer>
