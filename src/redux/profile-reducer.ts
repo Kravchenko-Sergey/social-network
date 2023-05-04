@@ -4,7 +4,6 @@ import { ThunkAction } from 'redux-thunk'
 import { AppStateType } from './redux-store'
 
 const ADD_POST = 'ADD-POST'
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
 const SET_STATUS = 'SET-STATUS'
 const SET_USER_PROFILE = 'SET-USER-PROFILE'
 
@@ -36,7 +35,6 @@ export type ProfileType = {
 
 type InitialStateProfileReducerType = {
 	postsData: PostType[]
-	newPostText: string
 	profile: ProfileType | null
 	status: string
 }
@@ -47,7 +45,6 @@ const initialState = {
 		{ id: 2, message: "It's my first post", likesCount: 10 },
 		{ id: 3, message: 'Yo', likesCount: 15 }
 	],
-	newPostText: '',
 	profile: null,
 	status: ''
 }
@@ -60,18 +57,12 @@ export const profileReducer = (
 		case ADD_POST: {
 			const newPost = {
 				id: Number(new Date()),
-				message: state.newPostText,
+				message: action.newPostText,
 				likesCount: 0
 			}
 			let stateCopy = { ...state }
 			stateCopy.postsData = [...state.postsData]
 			stateCopy.postsData.push(newPost)
-			stateCopy.newPostText = ''
-			return stateCopy
-		}
-		case UPDATE_NEW_POST_TEXT: {
-			let stateCopy = { ...state }
-			stateCopy.newPostText = action.newText
 			return stateCopy
 		}
 		case SET_STATUS: {
@@ -88,20 +79,13 @@ export const profileReducer = (
 	}
 }
 
-type UnionType = AddPostACType | UpdateNewPostTextACType | SetUserProfileACType | SetStatusACType
+type UnionType = AddPostACType | SetUserProfileACType | SetStatusACType
 
 type AddPostACType = ReturnType<typeof addPostAC>
-export const addPostAC = () => {
+export const addPostAC = (newPostText: string) => {
 	return {
-		type: ADD_POST
-	} as const
-}
-
-type UpdateNewPostTextACType = ReturnType<typeof updateNewPostTextAC>
-export const updateNewPostTextAC = (text: string) => {
-	return {
-		type: UPDATE_NEW_POST_TEXT,
-		newText: text
+		type: ADD_POST,
+		newPostText: newPostText
 	} as const
 }
 

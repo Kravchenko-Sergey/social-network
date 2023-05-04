@@ -1,13 +1,14 @@
-import React, { ChangeEvent, RefObject } from 'react'
+import React, { RefObject } from 'react'
 import classes from './Dialogs.module.css'
 import Message from './Message/Message'
 import DialogItem from './DialogItem/DialogItem'
 import store from '../../redux/redux-store'
 import { Redirect } from 'react-router-dom'
+import { Field, reduxForm } from 'redux-form'
 
 type DialogsType = {
 	updateNewMessageText: (text: string) => void
-	addMessage: () => void
+	addMessage: (values: any) => void
 	messagesData: MessageType[]
 	dialogsData: DialogType[]
 	newMessageText: string
@@ -29,16 +30,11 @@ const newMessageElement: RefObject<HTMLTextAreaElement> = React.createRef()
 function Dialogs(props: DialogsType) {
 	const state = props.dialogsData
 
-	const addMessage = () => {
-		props.addMessage()
+	const addNewMessage = (values: any) => {
+		props.addMessage(values.newMessageBody)
 	}
 
-	const onMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-		const text = e.target.value
-		props.updateNewMessageText(text)
-	}
-
-	if (!props.isAuth) {
+	if (props.isAuth) {
 		return <Redirect to={'/login'} />
 	}
 
@@ -58,20 +54,23 @@ function Dialogs(props: DialogsType) {
 						className={message.id % 2 === 0 ? classes.myMessage : classes.message}
 					/>
 				))}
-				<div className={classes.form}>
-					<textarea
-						ref={newMessageElement}
-						value={props.newMessageText}
-						onChange={onMessageChange}
-						className={classes.textarea}
-					/>
-					<button onClick={addMessage} className={classes.button}>
-						send message
-					</button>
-				</div>
+				<AddMessageFormRedux onSubmit={addNewMessage} />
 			</div>
 		</div>
 	)
 }
+
+const AddMessageForm = (props: any) => {
+	return (
+		<form onSubmit={props.handleSubmit}>
+			<div>
+				<Field component={'textarea'} name={'newMessageBody'} placeholder={'Enter new message'} />
+				<button className={classes.button}>send message</button>
+			</div>
+		</form>
+	)
+}
+
+const AddMessageFormRedux = reduxForm({ form: 'dialogAddMessageForm' })(AddMessageForm)
 
 export default Dialogs

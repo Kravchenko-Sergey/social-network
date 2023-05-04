@@ -8,7 +8,6 @@ export type MessageType = {
 }
 
 const ADD_MESSAGE = 'ADD-MESSAGE'
-const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT'
 
 const initialState = {
 	dialogsData: [
@@ -26,49 +25,32 @@ const initialState = {
 		{ id: 5, message: 'Yo' },
 		{ id: 6, message: 'Yo' },
 		{ id: 7, message: 'Yo' }
-	] as MessageType[],
-	newMessageText: ''
+	] as MessageType[]
 }
 
 export type InitialStateType = typeof initialState
 
-export const dialogsReducer = (
-	state: InitialStateType = initialState,
-	action: UnionType
-): InitialStateType => {
+export const dialogsReducer = (state: InitialStateType = initialState, action: UnionType): InitialStateType => {
 	switch (action.type) {
 		case ADD_MESSAGE: {
-			const newMessage = {
-				id: Number(new Date()),
-				message: state.newMessageText
-			}
+			const body = action.newMessageBody
+
 			return {
 				...state,
-				newMessageText: '',
-				messagesData: [...state.messagesData, newMessage]
+				messagesData: [...state.messagesData, { id: 6, message: body }]
 			}
-		}
-		case UPDATE_NEW_MESSAGE_TEXT: {
-			return { ...state, newMessageText: action.newText }
 		}
 		default:
 			return state
 	}
 }
 
-type UnionType = AddMessageACType | UpdateNewMessageTextACType
+type UnionType = AddMessageACType
 
 type AddMessageACType = ReturnType<typeof addMessageAC>
-export const addMessageAC = () => {
+export const addMessageAC = (newMessageBody: any) => {
 	return {
-		type: ADD_MESSAGE
-	} as const
-}
-
-type UpdateNewMessageTextACType = ReturnType<typeof updateNewMessageTextAC>
-export const updateNewMessageTextAC = (text: string) => {
-	return {
-		type: UPDATE_NEW_MESSAGE_TEXT,
-		newText: text
+		type: ADD_MESSAGE,
+		newMessageBody: newMessageBody
 	} as const
 }

@@ -26,7 +26,11 @@ const Login = () => {
 	return (
 		<div>
 			<h1>Login</h1>
-			<LoginReduxForm />
+			<LoginReduxForm
+				onSubmit={() => {
+					console.log('qwerty')
+				}}
+			/>
 		</div>
 	)
 }
