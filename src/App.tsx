@@ -1,17 +1,20 @@
 import React from 'react'
 import './App.css'
 import Navbar from './components/Navbar/Navbar'
-import { Route } from 'react-router-dom'
+import { Route, withRouter } from 'react-router-dom'
 import News from './components/News/News'
 import Music from './components/Music/Music'
 import Settings from './components/Settings/Settings'
 import DialogsContainer from './components/Dialogs/DialogsContainer'
 import UsersContainer from './components/Users/UsersContainer'
 import store from './redux/redux-store'
-import { Dispatch } from 'redux'
+import { compose, Dispatch } from 'redux'
 import ProfileContainer from './components/Profile/ProfileContainer'
 import HeaderContainer from './components/Header/HeaderContainer'
 import Login from './components/Login/Login'
+import { connect } from 'react-redux'
+import { initializedApp, initializedSuccess } from './redux/app-reducer'
+import Preloader from './components/common/Preloader/Preloader'
 
 export type DialogsPagesType = {
 	dialogsData: DialogType[]
@@ -74,20 +77,36 @@ export type AppPropsType = {
 	dispatch: Dispatch
 }
 
-function App() {
-	return (
-		<div className='app-wrapper'>
-			<HeaderContainer />
-			<Navbar friends={store.getState().sidebarReducer.friends} />
-			<Route path={'/profile/:userId?'} render={() => <ProfileContainer />} />
-			<Route path={'/dialogs'} render={() => <DialogsContainer />} />
-			<Route path={'/users'} render={() => <UsersContainer />} />
-			<Route path={'/login'} render={() => <Login />} />
-			<Route path={'/news'} component={News} />
-			<Route path={'/music'} component={Music} />
-			<Route path={'/settings'} component={Settings} />
-		</div>
-	)
+type AppContainerPropsType = {
+	initializedApp: () => void
+	initialized: any
 }
 
-export default App
+class App extends React.Component<AppContainerPropsType> {
+	componentDidMount() {
+		this.props.initializedApp()
+	}
+	render() {
+		if (!this.props.initialized) {
+			return <Preloader />
+		} else {
+			return (
+				<div className='app-wrapper'>
+					<HeaderContainer />
+					<Navbar friends={store.getState().sidebarReducer.friends} />
+					<Route path={'/profile/:userId?'} render={() => <ProfileContainer />} />
+					<Route path={'/dialogs'} render={() => <DialogsContainer />} />
+					<Route path={'/users'} render={() => <UsersContainer />} />
+					<Route path={'/login'} render={() => <Login />} />
+					<Route path={'/news'} component={News} />
+					<Route path={'/music'} component={Music} />
+					<Route path={'/settings'} component={Settings} />
+				</div>
+			)
+		}
+	}
+}
+
+const mapStateToProps = (state: any) => ({ initialized: state.app.initialized })
+
+export default compose(withRouter, connect(mapStateToProps, { initializedApp }))(App)
