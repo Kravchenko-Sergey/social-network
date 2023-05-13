@@ -1,7 +1,7 @@
 import { Dispatch } from 'redux'
 import { getAuthUserData } from './auth-reducer'
 
-const SET_INITIALIZED_SUCCESS = 'SET-INITIALIZED_SUCCESS'
+const SET_INITIALIZED_SUCCESS = 'SET-INITIALIZED-SUCCESS'
 
 type InitialStateType = {
 	initialized: boolean
@@ -26,7 +26,7 @@ type InitializedSuccessType = ReturnType<typeof initializedSuccess>
 export const initializedSuccess = () => {
 	return {
 		type: SET_INITIALIZED_SUCCESS
-	}
+	} as const
 }
 
 export const initializedApp = () => (dispatch: Dispatch) => {
